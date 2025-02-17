@@ -28,7 +28,7 @@ const handleViewDetails = (name) => {
   alert(`Detalles de: ${name}`);
 };
 
-export default function MultipleSelectChip() {
+export default function MultipleSelectChip({ customComponent }) {
   return (
     <div>
       <Autocomplete

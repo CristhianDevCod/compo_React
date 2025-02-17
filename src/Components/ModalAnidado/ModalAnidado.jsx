@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import * as React from "react";
 import Modal from "@mui/material/Modal";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import MultipleSelectChip from "../SelectMult/MultipleSelectChip";
+import { useState } from "react";
 
 const style = {
   position: "absolute",
@@ -12,16 +13,49 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
   pt: 2,
   px: 4,
   pb: 3,
 };
 
-function ModalAnidado() {
+function ChildModal() {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <React.Fragment>
+      <Button onClick={handleOpen}>Open Child Modal</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+      >
+        <Box sx={{ ...style, width: 200 }}>
+          <h2 id="child-modal-title">Text in a child modal</h2>
+          <p id="child-modal-description">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+          </p>
+          <Button onClick={handleClose}>Close Child Modal</Button>
+        </Box>
+      </Modal>
+    </React.Fragment>
+  );
+}
+
+export default function NestedModal() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   // Estados para manejar los valores de los inputs
   const [nombre, setNombre] = useState("");
@@ -42,10 +76,14 @@ function ModalAnidado() {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
       >
-        <Box sx={style} component="form" onSubmit={handleSubmit}>
+        <Box
+          sx={{ ...style, width: 400 }}
+          component="form"
+          onSubmit={handleSubmit}
+        >
           <Typography component="h1" variant="h5" align="center" gutterBottom>
             Formulario de Registro
           </Typography>
@@ -76,7 +114,9 @@ function ModalAnidado() {
 
           {/* Selector multiple */}
 
-          <MultipleSelectChip></MultipleSelectChip>
+          <MultipleSelectChip>
+            {/* Aquí se recibe el componente */}
+          </MultipleSelectChip>
 
           {/* Campo para la contraseña */}
           <TextField
@@ -100,10 +140,9 @@ function ModalAnidado() {
           >
             Registrarse
           </Button>
+          <ChildModal />
         </Box>
       </Modal>
     </div>
   );
 }
-
-export default ModalAnidado;
