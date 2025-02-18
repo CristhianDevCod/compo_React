@@ -1,4 +1,3 @@
-import * as React from "react";
 import Modal from "@mui/material/Modal";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import SelectorMultiple from "../SelectMult/SelectorMultiple";
@@ -19,7 +18,8 @@ const style = {
 };
 
 export default function NestedModal() {
-  const [open, setOpen] = React.useState(false);
+  //Controles para la ventana modal
+  const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -27,7 +27,7 @@ export default function NestedModal() {
     setOpen(false);
   };
 
-  // Estados para manejar los valores de los inputs
+  // Estados para manejar los valores de los inputs - no necesarios
   const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,13 +36,11 @@ export default function NestedModal() {
   const handleSubmit = (e) => {
     e.preventDefault(); // Evita que la página se recargue
     console.log("Datos del formulario:", { nombre, email, password });
-    alert("Formulario enviado correctamente");
-    // Aquí podrías enviar los datos a un servidor o API
   };
 
   return (
     <div>
-      <Button onClick={handleOpen}>Abrir modal opcion 2</Button>
+      <Button onClick={handleOpen}>Abrir formulario</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -82,7 +80,7 @@ export default function NestedModal() {
             required
           />
 
-          {/* Selector multiple */}
+          {/* Selector multiple ---- exportable produccion */}
           <SelectorMultiple />
 
           {/* Campo para la contraseña */}

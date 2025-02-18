@@ -20,26 +20,73 @@ const style = {
   position: "absolute",
   top: "50%",
   left: "70%",
-  transform: "translate(-10%, -130%)",
+  transform: "translate(-10%, -160%)",
   width: 400,
   bgcolor: "background.paper",
   border: "1px solid #000",
   boxShadow: 24,
+  borderRadius: 6,
   pt: 2,
   px: 4,
   pb: 3,
 };
 
-const names = [
-  { name: "KPI de ventas" },
-  { name: "KPI de Marketing" },
-  { name: "dolor minus" },
-  { name: "KPI atención cliente" },
-  { name: "KPI financiero" },
-  { name: "adipisicing elit" },
-  { name: "KPI colombiano" },
-  { name: "KPI Lorem" },
-  { name: "KPI amet consectetur" },
+const kpis = [
+  {
+    nombre: "tasa de retención de clientes",
+    reporte: "reporte de eficiencia",
+    tipo: "relativo",
+    formula: "tasa de conversión de ventas",
+    meta: "ganancia de 8%",
+    responsable: "andres camilo",
+    descripcion: "monitorear la tasa de conversión de ventas",
+    periodicidad: "semanal",
+    tipoCalculo: "basados en metricas abs",
+  },
+  {
+    nombre: "margen de beneficio neto",
+    reporte: "reporte de eficiencia",
+    tipo: "relativo",
+    formula: "tasa de conversión de ventas",
+    meta: "ganancia de 8%",
+    responsable: "andres camilo",
+    descripcion: "monitorear la tasa de conversión de ventas",
+    periodicidad: "semanal",
+    tipoCalculo: "basados en metricas abs",
+  },
+  {
+    nombre: "tiempo de ciclo de produccion",
+    reporte: "reporte de eficiencia",
+    tipo: "relativo",
+    formula: "tasa de conversión de ventas",
+    meta: "ganancia de 8%",
+    responsable: "andres camilo",
+    descripcion: "monitorear la tasa de conversión de ventas",
+    periodicidad: "semanal",
+    tipoCalculo: "basados en metricas abs",
+  },
+  {
+    nombre: "índice de satisfacción del cliente",
+    reporte: "reporte de eficiencia",
+    tipo: "relativo",
+    formula: "tasa de conversión de ventas",
+    meta: "ganancia de 8%",
+    responsable: "andres camilo",
+    descripcion: "monitorear la tasa de conversión de ventas",
+    periodicidad: "semanal",
+    tipoCalculo: "basados en metricas abs",
+  },
+  {
+    nombre: "rotación de inventario",
+    reporte: "reporte de eficiencia",
+    tipo: "relativo",
+    formula: "tasa de conversión de ventas",
+    meta: "ganancia de 8%",
+    responsable: "andres camilo",
+    descripcion: "monitorear la tasa de conversión de ventas",
+    periodicidad: "semanal",
+    tipoCalculo: "basados en metricas abs",
+  },
 ];
 
 export default function MultipleSelectChip() {
@@ -63,7 +110,7 @@ export default function MultipleSelectChip() {
       <Autocomplete
         multiple
         id="checkboxes-tags-demo"
-        options={names}
+        options={kpis}
         disableCloseOnSelect
         open={openAutocomplete}
         onOpen={() => setOpenAutocomplete(true)}
@@ -72,7 +119,7 @@ export default function MultipleSelectChip() {
           if (openModal) return;
           setOpenAutocomplete(false);
         }}
-        getOptionLabel={(option) => option.name}
+        getOptionLabel={(option) => option.nombre}
         renderOption={(props, option, { selected }) => {
           //Se extrae la key manualmente y el resto de props
           // eslint-disable-next-line react/prop-types
@@ -98,7 +145,7 @@ export default function MultipleSelectChip() {
                 />
 
                 {/* Nombre del KPI */}
-                {option.name}
+                {option.nombre}
               </Container>
 
               {/* Boton para ver detalles que abre la modal*/}
@@ -121,7 +168,7 @@ export default function MultipleSelectChip() {
                   color="warning"
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleViewDetails(option.name);
+                    handleViewDetails(option.nombre);
                   }}
                 >
                   <RemoveRedEyeIcon />
