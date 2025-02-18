@@ -1,7 +1,7 @@
 import * as React from "react";
 import Modal from "@mui/material/Modal";
 import { TextField, Button, Box, Typography } from "@mui/material";
-import MultipleSelectChip from "../SelectMult/MultipleSelectChip";
+import SelectorMultiple from "../SelectMult/SelectorMultiple";
 import { useState } from "react";
 
 const style = {
@@ -83,7 +83,7 @@ export default function NestedModal() {
           />
 
           {/* Selector multiple */}
-          <MultipleSelectChip />
+          <SelectorMultiple />
 
           {/* Campo para la contraseña */}
           <TextField
