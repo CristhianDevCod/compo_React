@@ -1,16 +1,32 @@
-import { Checkbox, Button } from "@mui/material";
+import { Checkbox, Button, Box } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete/Autocomplete";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import TextField from "@mui/material/TextField";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Container from "@mui/material/Container";
+import { useState } from "react";
+import Modal from "@mui/material/Modal";
 
 // Importar icons
 // Importar material ui
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  pt: 2,
+  px: 4,
+  pb: 3,
+};
 
 const names = [
   { name: "KPI de ventas" },
@@ -24,11 +40,21 @@ const names = [
   { name: "KPI amet consectetur" },
 ];
 
-const handleViewDetails = (name) => {
-  alert(`Detalles de: ${name}`);
-};
+export default function MultipleSelectChip() {
+  //Controles de modal
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedKPI, setSelectedKPI] = useState(null);
 
-export default function MultipleSelectChip({ customComponent }) {
+  //Función que abra la modal y setea el KPI seleccionado
+  const handleViewDetails = (kpi) => {
+    setSelectedKPI(kpi);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
   return (
     <div>
       <Autocomplete
@@ -65,7 +91,7 @@ export default function MultipleSelectChip({ customComponent }) {
                 {option.name}
               </Container>
 
-              {/* Boton para ver detalles */}
+              {/* Boton para ver detalles que abre la modal*/}
               <Button
                 sx={{
                   marginLeft: "10px",
@@ -95,6 +121,22 @@ export default function MultipleSelectChip({ customComponent }) {
           />
         )}
       />
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Box sx={{ ...style, width: 200 }}>
+          <h2 id="modal-title">Text in a child modal</h2>
+          <p id="modal-description">
+            {selectedKPI ? `Detalles de: ${selectedKPI}` : "No hay detalles"}
+          </p>
+          <Button variant="contained" onClick={handleCloseModal}>
+            Cerrar
+          </Button>
+        </Box>
+      </Modal>
     </div>
   );
 }
