@@ -44,6 +44,7 @@ export default function MultipleSelectChip() {
   //Controles de modal
   const [openModal, setOpenModal] = useState(false);
   const [selectedKPI, setSelectedKPI] = useState(null);
+  const [openAutocomplete, setOpenAutocomplete] = useState(false);
 
   //Función que abra la modal y setea el KPI seleccionado
   const handleViewDetails = (kpi) => {
@@ -62,6 +63,13 @@ export default function MultipleSelectChip() {
         id="checkboxes-tags-demo"
         options={names}
         disableCloseOnSelect
+        open={openAutocomplete}
+        onOpen={() => setOpenAutocomplete(true)}
+        onClose={() => {
+          //Si la modal está abierta, evitamos que se cierre el autocomplete.
+          if (openModal) return;
+          setOpenAutocomplete(false);
+        }}
         getOptionLabel={(option) => option.name}
         renderOption={(props, option, { selected }) => {
           //Se extrae la key manualmente y el resto de props
@@ -92,23 +100,31 @@ export default function MultipleSelectChip() {
               </Container>
 
               {/* Boton para ver detalles que abre la modal*/}
-              <Button
-                sx={{
-                  marginLeft: "10px",
-                  padding: "2px",
-                  minWidth: "32px",
-                  alignSelf: "end",
+              <span
+                onMouseDown={(e) => {
+                  e.preventDefault(); //Evita que se dispare el comportamiento por defecto
+                  e.stopPropagation(); //Evita que el evento se propague al Autocompletar
                 }}
-                size="small"
-                variant="contained"
-                color="warning"
-                onClick={(e) => {
-                  e.stopPropagation(); // Evita seleccionar la opción
-                  handleViewDetails(option.name);
-                }}
+                onClick={(e) => e.stopPropagation()}
               >
-                <RemoveRedEyeIcon />
-              </Button>
+                <Button
+                  sx={{
+                    marginLeft: "10px",
+                    padding: "2px",
+                    minWidth: "32px",
+                    alignSelf: "end",
+                  }}
+                  size="small"
+                  variant="contained"
+                  color="warning"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleViewDetails(option.name);
+                  }}
+                >
+                  <RemoveRedEyeIcon />
+                </Button>
+              </span>
             </li>
           );
         }}
