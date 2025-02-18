@@ -42,7 +42,7 @@ const names = [
   { name: "KPI amet consectetur" },
 ];
 
-export default function MultipleSelectChip() {
+export default function MultipleSelectChip2() {
   //Controles de modal
   const [openModal, setOpenModal] = useState(false);
   const [selectedKPI, setSelectedKPI] = useState(null);
@@ -142,11 +142,6 @@ export default function MultipleSelectChip() {
       <Modal
         open={openModal}
         onClose={handleCloseModal}
-        slotProps={{
-          backdrop: {
-            style: { backgroundColor: "transparent" },
-          },
-        }}
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >

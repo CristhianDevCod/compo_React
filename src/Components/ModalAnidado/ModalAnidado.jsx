@@ -42,7 +42,7 @@ export default function NestedModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Abrir modal anidado</Button>
+      <Button onClick={handleOpen}>Abrir modal opcion 2</Button>
       <Modal
         open={open}
         onClose={handleClose}

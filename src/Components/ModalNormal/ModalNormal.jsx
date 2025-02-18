@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import * as React from "react";
 import Modal from "@mui/material/Modal";
 import { TextField, Button, Box, Typography } from "@mui/material";
-import MultipleSelectChip from "../SelectMult/MultipleSelectChip";
+import MultipleSelectChip2 from "./MultipleSelectChip2";
+import { useState } from "react";
 
 const style = {
   position: "absolute",
@@ -12,13 +13,19 @@ const style = {
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  pt: 2,
+  px: 4,
+  pb: 3,
 };
 
-function ModalNormal() {
+export default function ModalNormal() {
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   // Estados para manejar los valores de los inputs
   const [nombre, setNombre] = useState("");
@@ -35,14 +42,18 @@ function ModalNormal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Abrir modal</Button>
+      <Button onClick={handleOpen}>Abrir modal opcion 1</Button>
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
       >
-        <Box sx={style} component="form" onSubmit={handleSubmit}>
+        <Box
+          sx={{ ...style, width: 400 }}
+          component="form"
+          onSubmit={handleSubmit}
+        >
           <Typography component="h1" variant="h5" align="center" gutterBottom>
             Formulario de Registro
           </Typography>
@@ -72,8 +83,7 @@ function ModalNormal() {
           />
 
           {/* Selector multiple */}
-
-          <MultipleSelectChip></MultipleSelectChip>
+          <MultipleSelectChip2 />
 
           {/* Campo para la contraseña */}
           <TextField
@@ -102,5 +112,3 @@ function ModalNormal() {
     </div>
   );
 }
-
-export default ModalNormal;
