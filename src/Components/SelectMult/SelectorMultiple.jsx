@@ -10,6 +10,8 @@ import Modal from "@mui/material/Modal";
 import CloseIcon from "@mui/icons-material/Close";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Grid from "@mui/material/Grid2";
+import "@fontsource/roboto/300.css";
+import Typography from "@mui/material/Typography";
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
@@ -65,6 +67,38 @@ const kpis = [
   },
 ];
 
+//Funcion para poner ayuscula al principio
+function capitalizeFirstLetterInArrays(obj) {
+  //Se recorre cada propiedad del objeto
+  for (const key in obj) {
+    if (Object.hasOwnProperty.call(obj, key)) {
+      const value = obj[key];
+
+      //Verificar si el valor es un arreglo
+      if (Array.isArray(value)) {
+        //Recorre cada elemento del arreglo
+        obj[key] = value.map((item) => {
+          //verificar si el elemento es un string
+          if (typeof item === "string" && item.length > 0) {
+            //Capitalizar la primera letra
+            return item.charAt(0).toUpperCase() + item.slice(1);
+          }
+          return item; //Devolver el elemento sin cambios si no es un string
+        });
+      }
+      // Si el valor es un objeto, llamar recursivamnete a la funcion
+      else if (typeof value === "object" && value !== null) {
+        capitalizeFirstLetterInArrays(value);
+      }
+      //Si el valor es un string, capitalizar la primera letra
+      else if (typeof value === "string" && value.length > 0) {
+        obj[key] = value.charAt(0).toUpperCase() + value.slice(1);
+      }
+    }
+  }
+  return obj; //Devuelve un objeto modificado
+}
+
 export default function MultipleSelectChip() {
   //Controles de modal
   const [openModal, setOpenModal] = useState(false);
@@ -76,7 +110,9 @@ export default function MultipleSelectChip() {
 
   //Función que abra la modal y setea el KPI seleccionado
   const handleViewDetails = (kpi) => {
-    setSelectedKPI(kpi);
+    const nuevoKpi = capitalizeFirstLetterInArrays(kpi);
+    console.log(nuevoKpi);
+    setSelectedKPI(nuevoKpi);
     setOpenModal(true);
   };
   const handleCloseModal = () => {
@@ -230,14 +266,18 @@ export default function MultipleSelectChip() {
         <Box
           sx={{ ...style, width: 400, position: "relative", padding: "20px" }}
         >
-          {/* <h2 id="modal-title">Text in a child modal</h2>
-          <p id="modal-description">
-            {selectedKPI ? `Detalles de: ${selectedKPI}` : "No hay detalles"}
-          </p> */}
+          <Typography
+            variant="h5"
+            align="center"
+            marginBottom="20px"
+            gutterBottom
+          >
+            {selectedKPI?.nombre || "No disponible"}
+          </Typography>
           <Grid container spacing={2}>
             <Grid size={6}>
               <TextField
-                id="outlined-read-only-input"
+                id="nombre"
                 label="Nombre"
                 // sx={{ userSelect: "none" }}
                 defaultValue={selectedKPI?.nombre || "No disponile"}
@@ -250,7 +290,7 @@ export default function MultipleSelectChip() {
             </Grid>
             <Grid size={6}>
               <TextField
-                id="outlined-read-only-input"
+                id="reporte"
                 label="Reporte"
                 // sx={{ userSelect: "none" }}
                 defaultValue={selectedKPI?.reporte || "No disponile"}
@@ -263,7 +303,7 @@ export default function MultipleSelectChip() {
             </Grid>
             <Grid size={6}>
               <TextField
-                id="outlined-read-only-input"
+                id="tipo"
                 label="Tipo"
                 // sx={{ userSelect: "none" }}
                 defaultValue={selectedKPI?.tipo || "No disponile"}
@@ -276,7 +316,7 @@ export default function MultipleSelectChip() {
             </Grid>
             <Grid size={6}>
               <TextField
-                id="outlined-read-only-input"
+                id="formula"
                 label="Formula"
                 // sx={{ userSelect: "none" }}
                 defaultValue={selectedKPI?.formula || "No disponile"}
@@ -289,7 +329,7 @@ export default function MultipleSelectChip() {
             </Grid>
             <Grid size={6}>
               <TextField
-                id="outlined-read-only-input"
+                id="meta"
                 label="Meta"
                 // sx={{ userSelect: "none" }}
                 defaultValue={selectedKPI?.meta || "No disponile"}
@@ -302,7 +342,7 @@ export default function MultipleSelectChip() {
             </Grid>
             <Grid size={6}>
               <TextField
-                id="outlined-read-only-input"
+                id="responsable"
                 label="Responsable"
                 // sx={{ userSelect: "none" }}
                 defaultValue={selectedKPI?.responsable || "No disponile"}
@@ -315,7 +355,7 @@ export default function MultipleSelectChip() {
             </Grid>
             <Grid size={6}>
               <TextField
-                id="outlined-read-only-input"
+                id="descripcion"
                 label="Descripcion"
                 // sx={{ userSelect: "none" }}
                 defaultValue={selectedKPI?.descripcion || "No disponile"}
@@ -328,7 +368,7 @@ export default function MultipleSelectChip() {
             </Grid>
             <Grid size={6}>
               <TextField
-                id="outlined-read-only-input"
+                id="periodicidad"
                 label="Periodicidad"
                 // sx={{ userSelect: "none" }}
                 defaultValue={selectedKPI?.periodicidad || "No disponile"}
@@ -341,7 +381,7 @@ export default function MultipleSelectChip() {
             </Grid>
             <Grid size={6}>
               <TextField
-                id="outlined-read-only-input"
+                id="formato"
                 label="Formato KPI"
                 // sx={{ userSelect: "none" }}
                 defaultValue={selectedKPI?.formato || "No disponile"}
@@ -354,7 +394,7 @@ export default function MultipleSelectChip() {
             </Grid>
             <Grid size={6}>
               <TextField
-                id="outlined-read-only-input"
+                id="tipoCalculo"
                 label="Tipo de cálculo"
                 // sx={{ userSelect: "none" }}
                 defaultValue={selectedKPI?.tipoCalculo || "No disponile"}
