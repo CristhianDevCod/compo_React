@@ -99,6 +99,24 @@ function capitalizeFirstLetterInArrays(obj) {
   return obj; //Devuelve un objeto modificado
 }
 
+function generadorCampos(obj) {
+  return Object.entries(obj).map(([llave, valor]) => (
+    <Grid size={6} key={llave}>
+      <TextField
+        id={valor}
+        label={`${llave.charAt(0).toUpperCase()}${llave.substring(1)}`}
+        // sx={{ userSelect: "none" }}
+        defaultValue={valor || "No disponile"}
+        slotProps={{
+          input: {
+            readOnly: true,
+          },
+        }}
+      />
+    </Grid>
+  ));
+}
+
 export default function MultipleSelectChip() {
   //Controles de modal
   const [openModal, setOpenModal] = useState(false);
@@ -111,7 +129,6 @@ export default function MultipleSelectChip() {
   //Función que abra la modal y setea el KPI seleccionado
   const handleViewDetails = (kpi) => {
     const nuevoKpi = capitalizeFirstLetterInArrays(kpi);
-    console.log(nuevoKpi);
     setSelectedKPI(nuevoKpi);
     setOpenModal(true);
   };
@@ -275,136 +292,8 @@ export default function MultipleSelectChip() {
             {selectedKPI?.nombre || "No disponible"}
           </Typography>
           <Grid container spacing={2}>
-            <Grid size={6}>
-              <TextField
-                id="nombre"
-                label="Nombre"
-                // sx={{ userSelect: "none" }}
-                defaultValue={selectedKPI?.nombre || "No disponile"}
-                slotProps={{
-                  input: {
-                    readOnly: true,
-                  },
-                }}
-              />
-            </Grid>
-            <Grid size={6}>
-              <TextField
-                id="reporte"
-                label="Reporte"
-                // sx={{ userSelect: "none" }}
-                defaultValue={selectedKPI?.reporte || "No disponile"}
-                slotProps={{
-                  input: {
-                    readOnly: true,
-                  },
-                }}
-              />
-            </Grid>
-            <Grid size={6}>
-              <TextField
-                id="tipo"
-                label="Tipo"
-                // sx={{ userSelect: "none" }}
-                defaultValue={selectedKPI?.tipo || "No disponile"}
-                slotProps={{
-                  input: {
-                    readOnly: true,
-                  },
-                }}
-              />
-            </Grid>
-            <Grid size={6}>
-              <TextField
-                id="formula"
-                label="Formula"
-                // sx={{ userSelect: "none" }}
-                defaultValue={selectedKPI?.formula || "No disponile"}
-                slotProps={{
-                  input: {
-                    readOnly: true,
-                  },
-                }}
-              />
-            </Grid>
-            <Grid size={6}>
-              <TextField
-                id="meta"
-                label="Meta"
-                // sx={{ userSelect: "none" }}
-                defaultValue={selectedKPI?.meta || "No disponile"}
-                slotProps={{
-                  input: {
-                    readOnly: true,
-                  },
-                }}
-              />
-            </Grid>
-            <Grid size={6}>
-              <TextField
-                id="responsable"
-                label="Responsable"
-                // sx={{ userSelect: "none" }}
-                defaultValue={selectedKPI?.responsable || "No disponile"}
-                slotProps={{
-                  input: {
-                    readOnly: true,
-                  },
-                }}
-              />
-            </Grid>
-            <Grid size={6}>
-              <TextField
-                id="descripcion"
-                label="Descripcion"
-                // sx={{ userSelect: "none" }}
-                defaultValue={selectedKPI?.descripcion || "No disponile"}
-                slotProps={{
-                  input: {
-                    readOnly: true,
-                  },
-                }}
-              />
-            </Grid>
-            <Grid size={6}>
-              <TextField
-                id="periodicidad"
-                label="Periodicidad"
-                // sx={{ userSelect: "none" }}
-                defaultValue={selectedKPI?.periodicidad || "No disponile"}
-                slotProps={{
-                  input: {
-                    readOnly: true,
-                  },
-                }}
-              />
-            </Grid>
-            <Grid size={6}>
-              <TextField
-                id="formato"
-                label="Formato KPI"
-                // sx={{ userSelect: "none" }}
-                defaultValue={selectedKPI?.formato || "No disponile"}
-                slotProps={{
-                  input: {
-                    readOnly: true,
-                  },
-                }}
-              />
-            </Grid>
-            <Grid size={6}>
-              <TextField
-                id="tipoCalculo"
-                label="Tipo de cálculo"
-                // sx={{ userSelect: "none" }}
-                defaultValue={selectedKPI?.tipoCalculo || "No disponile"}
-                slotProps={{
-                  input: {
-                    readOnly: true,
-                  },
-                }}
-              />
-            </Grid>
+            {/* Renderiza los campos de la vista de forma dinamica */}
+            {generadorCampos(selectedKPI || {})}
           </Grid>
           {/* Boton opcional para cerrar el modal */}
           <Fab
