@@ -10,6 +10,7 @@ import Modal from "@mui/material/Modal";
 import { Fab } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import {Tooltip} from "@mui/material";
+import {Card} from "@mui/material";
 
 // Importar icons
 // Importar material ui
@@ -189,37 +190,40 @@ export default function MultipleSelectChip() {
           />
         )}
       />
-      <Modal
-        open={openModal}
-        onClose={handleCloseModal}
-        slotProps={{
-          backdrop: {
-            style: { backgroundColor: "transparent" },
-          },
-        }}
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-      >
-        <Box sx={{ ...style, width: 300, position: "relative" }}>
-          <h2 id="modal-title">Text in a child modal</h2>
-          <p id="modal-description">
-            {selectedKPI ? `Detalles de: ${selectedKPI}` : "No hay detalles"}
-          </p>
-          <Fab
-            color="error"
-            size="medium"
-            sx={{
-              position: "absolute",
-              top: "-30%",
-              left: "100%",
-              borderRadius: "50%",
-            }}
-            onClick={handleCloseModal}
-          >
-            <CloseIcon />
-          </Fab>
-        </Box>
-      </Modal>
+
+      {/* Modal que se muestra con los detalles */}
+        <Modal
+          open={openModal}
+          onClose={handleCloseModal}
+          slotProps={{
+            backdrop: {
+              style: { backgroundColor: "transparent" },
+            },
+          }}
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
+        >
+          <Box sx={{ ...style, width: 300, position: "relative" }}>
+            <h2 id="modal-title">Text in a child modal</h2>
+            <p id="modal-description">
+              {selectedKPI ? `Detalles de: ${selectedKPI}` : "No hay detalles"}
+            </p>
+            
+            <Fab
+              color="error"
+              size="medium"
+              sx={{
+                position: "absolute",
+                top: "-30%",
+                left: "100%",
+                borderRadius: "50%",
+              }}
+              onClick={handleCloseModal}
+            >
+              <CloseIcon />
+            </Fab>
+          </Box>
+        </Modal>
     </div>
   );
 }
