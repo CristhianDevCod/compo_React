@@ -157,7 +157,7 @@ export default function MultipleSelectChip() {
                 }}
                 onClick={(e) => e.stopPropagation()}
               >
-                <Tooltip title="Detalles">
+                <Tooltip title="Ver detalles" placement="right-start">
                   <Button
                     sx={{
                       marginLeft: "10px",
