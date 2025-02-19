@@ -9,6 +9,7 @@ import { useState } from "react";
 import Modal from "@mui/material/Modal";
 import { Fab } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import {Tooltip} from "@mui/material";
 
 // Importar icons
 // Importar material ui
@@ -156,23 +157,25 @@ export default function MultipleSelectChip() {
                 }}
                 onClick={(e) => e.stopPropagation()}
               >
-                <Button
-                  sx={{
-                    marginLeft: "10px",
-                    padding: "2px",
-                    minWidth: "32px",
-                    alignSelf: "end",
-                  }}
-                  size="small"
-                  variant="contained"
-                  color="warning"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleViewDetails(option.nombre);
-                  }}
-                >
-                  <RemoveRedEyeIcon />
-                </Button>
+                <Tooltip title="Detalles">
+                  <Button
+                    sx={{
+                      marginLeft: "10px",
+                      padding: "2px",
+                      minWidth: "32px",
+                      alignSelf: "end",
+                    }}
+                    size="small"
+                    variant="contained"
+                    color="warning"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleViewDetails(option.nombre);
+                    }}
+                  >
+                    <RemoveRedEyeIcon />
+                  </Button>
+                </Tooltip>
               </span>
             </li>
           );
